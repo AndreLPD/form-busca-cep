@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Form-JS</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="text-center">Cadastro de usuario</h1>
+    <div class="form-group">
+    <label for="">Nome</label>
+    <input type="text" name="" id="nome" class="form-control" placeholder="nome do cliente">
+    </div>
+    <div class="form-group">
+    <label for="">Idade</label>
+    <input type="date" id="idade" class="form-control">
+    </div>
+    <div class="input-group-prepend">
+    <label for="">Cep</label>
+    <input type="text" id="cep" class="form-control" placeholder="cep" maxlength="15">
+    <button type="button" id="busca-cep" class="btn btn-outline-secondary">Busca cep</button>
+    <div id='erro_msg_cep'></div>
+    </div>
+    <div class="form-group">
+    <label for="">Endereço</label>
+    <input type="text" id="endereco" class="form-control" value="" placeholder="Digite o endereço">
+    </div>
+    <div class="form-group">
+    <label for="">Complemento</label>
+    <input type="text" id="complemento" class="form-control" placeholder="Digite o complemento">
+    </div>
+    <div class="form-group">
+    <label for="">Bairro</label>
+    <input type="text" id="bairro" class="form-control" value="" placeholder="Digite o bairro">
+    </div>
+    <div class="form-group">
+    <label for="">Cidade</label>
+    <input type="text" id="cidade" class="form-control" value="" placeholder="Digite a cidade">
+    </div>
+
+    <button type="button" id="salvar" class="btn btn-primary" disabled>Salvar</button>
+</div>
+<footer>
+  <a></a>
+</footer>
+    <script src="js/index.js"></script>
+  </body>
+</html>
