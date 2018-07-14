@@ -32,15 +32,13 @@
   }
 
   function validaCep(request) {
-    var $msg = document.getElementById('#erro_msg_cep');
+    var $msg = document.querySelector('#erro_msg_cep');
 
     if (request.readyState == XMLHttpRequest.DONE && request.responseText) {
       if (request.status === 404) {
         $msg.innerHTML = "Cep inválido!!!";
-        form_init();
+        disable_input(true);
       }
-    }else{
-      disable_input(false);
     }
   }
 
@@ -49,13 +47,6 @@
 
     //recebe do formulario o valor do campo cep
     var cep = document.querySelector('#cep').value;
-
-    //valida se o campo cep retorna null
-    if (cep) {
-       disable_input(false);
-    }else{
-       disable_input(true);
-    }
 
 
     const api = `https://viacep.com.br/ws/${cep}/json/`;
@@ -70,8 +61,9 @@
 
     request.onload = function() {
       'use strict'
-      validaCep(request);
 
+      validaCep(request);
+      debugger;
       //converte o texto para JSON e atribui a variavel resposta
       //variavel resposta está no escopo da função
       var resposta = JSON.parse(request.responseText);
@@ -80,6 +72,7 @@
       document.querySelector('#endereco').value = resposta.logradouro;
       document.querySelector('#bairro').value = resposta.bairro;
       document.querySelector('#cidade').value = resposta.localidade;
+      disable_input(false);
     }
 
     request.send();
