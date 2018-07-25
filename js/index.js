@@ -14,9 +14,7 @@
   //function form_init limpa os campos, desativa eles
   function form_init() {
     const $input = document.querySelectorAll('input');
-     for (var i = 0; i < $input.length; i++) {
-       $input[i].value="";
-     }
+    Array.prototype.forEach.call($input, input => input.value = '');
     disable_input(true);
   }
 
@@ -24,11 +22,8 @@
   // desativar campos de endereço com Dom level 0
   function disable_input(desativa) {
     'use strict'
-    document.querySelector('#endereco').disabled = desativa;
-    document.querySelector('#complemento').disabled = desativa;
-    document.querySelector('#bairro').disabled = desativa;
-    document.querySelector('#cidade').disabled = desativa;
-    document.querySelector('#salvar').disabled = desativa;
+    var $inputsd = document.querySelectorAll('.disable_input input,#salvar');
+    Array.prototype.forEach.call($inputsd, inputd => inputd.disabled = desativa);
   }
 
   function validaCep(request) {
@@ -43,7 +38,7 @@
   }
 
   //busca cep na api e retorna
-  button.addEventListener('click', function() {
+  button.addEventListener('click', () => {
 
     //recebe do formulario o valor do campo cep
     var cep = document.querySelector('#cep').value;
@@ -63,7 +58,6 @@
       'use strict'
 
       validaCep(request);
-      debugger;
       //converte o texto para JSON e atribui a variavel resposta
       //variavel resposta está no escopo da função
       var resposta = JSON.parse(request.responseText);
