@@ -5,7 +5,7 @@
 * Autor: Andre Luis
 * email:andre.luis.pessoa@gmail.com
 */
-(function () {
+(() => {
   var button = document.querySelector('#busca-cep');
   var buttonsave = document.querySelector('#salvar');
   var pessoa = {};
@@ -14,7 +14,7 @@
   //function form_init limpa os campos, desativa eles
   function form_init() {
     const $input = document.querySelectorAll('input');
-    Array.prototype.forEach.call($input, input => input.value = '');
+    $input.forEach.call($input, input => input.value = '');
     disable_input(true);
   }
 
@@ -23,7 +23,7 @@
   function disable_input(desativa) {
     'use strict'
     var $inputsd = document.querySelectorAll('.disable_input input,#salvar');
-    Array.prototype.forEach.call($inputsd, inputd => inputd.disabled = desativa);
+    $inputsd.forEach.call($inputsd, inputd => inputd.disabled = desativa);
   }
 
   function validaCep(request) {
@@ -45,8 +45,26 @@
 
 
     const api = `https://viacep.com.br/ws/${cep}/json/`;
+  
+  //requisição feita com o fetch usando PROMISE
+  fetch(api)
+  .then(function(response){
+    response.json().then(function(data){
+      console.log(data);
+      document.querySelector('#endereco').value = data.logradouro;
+      document.querySelector('#bairro').value = data.bairro;
+      document.querySelector('#cidade').value = data.localidade;
+      disable_input(false);
+    });
+  })
+  .catch(function(err){
+    console.error('Failed retrieving information', err); 
+  });
 
-    //objeto request recebe a API
+
+/** 
+ *  //Request com XMLHttpRequest
+    //objeto request recebe a API XMLHttpRequest
     var request = new XMLHttpRequest();
 
 
@@ -62,6 +80,8 @@
       //variavel resposta está no escopo da função
       var resposta = JSON.parse(request.responseText);
 
+      
+
       //retorna para o form
       document.querySelector('#endereco').value = resposta.logradouro;
       document.querySelector('#bairro').value = resposta.bairro;
@@ -70,10 +90,14 @@
     }
 
     request.send();
-
+*/
   })
+
+
+
+
   // recebe dados do formulario
-  buttonsave.addEventListener('click', function() {
+  buttonsave.addEventListener('click', () => {
     pessoa.endereco = {logradouro : "", complemento:"", bairro : "", cidade:""}
       //atribui os dados no objeto pessoa
       pessoa.nome = document.querySelector('#nome').value;
@@ -82,6 +106,8 @@
       pessoa.endereco.complemento = document.querySelector('#complemento').value;
       pessoa.endereco.bairro = document.querySelector('#bairro').value;
       pessoa.endereco.cidade = document.querySelector('#cidade').value;
+
+      //var pessoa = new Pessoa(nome, idade, logradouro, complemento, bairro, cidade);
       form_init();
 
 
